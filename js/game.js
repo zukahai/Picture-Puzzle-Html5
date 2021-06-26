@@ -101,6 +101,38 @@ class game {
         })
     }
 
+    listenKeyboard() {
+        document.addEventListener("keydown", key => {
+            switch(key.keyCode) {
+                case 37:
+                    xEnd = II;
+                    yEnd = JJ;
+                    xStart = xEnd;
+                    yStart = yEnd + 1;
+                    break;
+                case 38:
+                    xEnd = II;
+                    yEnd = JJ;
+                    xStart = xEnd + 1;
+                    yStart = yEnd;
+                    break;
+                case 39:
+                    xEnd = II;
+                    yEnd = JJ;
+                    xStart = xEnd;
+                    yStart = yEnd - 1;
+                    break;
+                case 40:
+                    xEnd = II;
+                    yEnd = JJ;
+                    xStart = xEnd - 1;
+                    yStart = yEnd;
+                    break;
+            }
+            this.solove();
+        })
+    }
+
     solove() {
         if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1 && this.checkXY(xStart, yStart) && this.checkXY(xEnd, yEnd)){
             II = xStart;
@@ -123,12 +155,6 @@ class game {
                 if (data[i][j] != i * size + j + 1)
                     return false;
         return true;
-    }
-
-    listenKeyboard() {
-        document.addEventListener("keydown", key => {
-            
-        })
     }
 
     loop() {
