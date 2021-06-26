@@ -4,7 +4,7 @@ let WW = 0;
 const size = 3;
 let II = size - 1, JJ = size - 1;
 let xStart = -1, yStart = -1, xEnd = -1, yEnd = -1;
-
+let win = false;
 var bg = new Image();
 bg.src="images/background.jpg";
 
@@ -33,7 +33,7 @@ class game {
         document.body.appendChild(this.canvas);
 
         this.render();
-        
+
         do {
             this.initMatrix();
         } while (this.checkWin());
@@ -121,8 +121,11 @@ class game {
     }
 
     update() {
+        if (win)
+            return;
         this.render();
         if (this.checkWin() == true) {
+            win = true;
             window.alert("You Win");
             location.reload();
         }
