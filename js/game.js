@@ -6,6 +6,7 @@ let II = size - 1, JJ = size - 1;
 let xStart = -1, yStart = -1, xEnd = -1, yEnd = -1;
 let xs = 0, ys = 0;
 let win = false;
+let delayEnd = 0;
 var bg = new Image();
 bg.src="images/background.jpg";
 
@@ -160,6 +161,7 @@ class game {
     loop() {
         this.update();
         this.draw();
+        this.messageWin();
         setTimeout(() => this.loop(), 30);
     }
 
@@ -167,7 +169,10 @@ class game {
         if (win)
             return;
         this.render();
-        if (this.checkWin() == true) {
+    }
+
+    messageWin() {
+        if (this.checkWin() == true && delayEnd++ > 50) {
             win = true;
             window.alert("You Win");
             location.reload();
@@ -197,7 +202,7 @@ class game {
             var x = j * WW / 3 + (game_W - WW) / 2;
             
             this.context.beginPath();
-            this.context.strokeStyle  = "#33FFFF";
+            this.context.strokeStyle  = "#00FF00";
             this.context.lineWidth = 8;
             this.context.moveTo(x, y - 4);
             this.context.lineTo(x, y + WW + 4);
@@ -206,7 +211,7 @@ class game {
             y = 0 * WW / 3 + (game_W - WW) / 2;
             x = j * WW / 3 + (game_H - WW) / 2;
             this.context.beginPath();
-            this.context.strokeStyle  = "#33FFFF";
+            this.context.strokeStyle  = "#00FF00";
             this.context.lineWidth = 8;
             this.context.moveTo(y, x);
             this.context.lineTo(y + WW, x);
