@@ -1,8 +1,12 @@
 let game_W = 20;
 let game_H = 20;
+let WW = 0;
 
 var bg = new Image();
 bg.src="images/bg.jpg";
+
+var kh = new Image();
+kh.src="images/kh.png";
 
 class game {
     constructor() {
@@ -76,11 +80,14 @@ class game {
         this.canvas.height = document.documentElement.clientHeight;
         game_W = this.canvas.width;
         game_H = this.canvas.height;
+        WW = 0.7 * Math.min(game_W, game_H);
+        console.log(WW);
     }
 
     draw() {
         this.clearScreen();
         this.context.drawImage(bg, 0, 0, game_W, game_H);
+        this.context.drawImage(kh, (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
     }
 
     clearScreen() {
