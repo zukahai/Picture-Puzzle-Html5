@@ -85,7 +85,7 @@ class game {
                 else
                     xEnd = xStart - 1;
             }
-            if (xEnd == II && yEnd == JJ)
+            if (xEnd == II || yEnd == JJ)
                 this.solove();
         })
 
@@ -136,13 +136,34 @@ class game {
 
     solove() {
         if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1 && this.checkXY(xStart, yStart) && this.checkXY(xEnd, yEnd)){
-            II = xStart;
-            JJ = yStart;
-            var temp = data[xStart][yStart];
-            data[xStart][yStart] = data[xEnd][yEnd];
-            data[xEnd][yEnd] = temp;
+            if (II == xStart) {
+                if (JJ > yStart) {
+                    for (var j = JJ; j > yStart; j--) {
+                        data[II][j] = data[II][j - 1];
+                    }
+                } else {
+                    for (var j = JJ; j < yStart; j++)
+                        data[II][j] = data[II][j + 1];
+                }
+                data[xStart][yStart] = size * size;
+                II = xStart;
+                JJ = yStart;
+            } else {
+                if (II > xStart) {
+                    for (var i = II; i > xStart; i--)
+                        data[i][JJ] = data[i - 1][JJ];
+                } else {
+                    for (var i = II; i < xStart; i++)
+                        data[i][JJ] = data[i + 1][JJ];
+                }
+                data[xStart][yStart] = size * size;
+                II = xStart;
+                JJ = yStart;
+            }
+            
         }
     }
+
 
     checkXY(x, y) {
         if (x < 0 || x >= size || y < 0 || y >= size)
