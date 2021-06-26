@@ -174,6 +174,7 @@ class game {
     messageWin() {
         if (this.checkWin() == true && delayEnd++ > 50) {
             win = true;
+            delayEnd = -1000000000;
             window.alert("You Win");
             location.reload();
         }
