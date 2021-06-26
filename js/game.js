@@ -4,6 +4,7 @@ let WW = 0;
 const size = 3;
 let II = size - 1, JJ = size - 1;
 let xStart = -1, yStart = -1, xEnd = -1, yEnd = -1;
+let xs = 0, ys = 0;
 let win = false;
 var bg = new Image();
 bg.src="images/background.jpg";
@@ -56,7 +57,6 @@ class game {
                 x2 = Math.floor(Math.random() * (size - 1));
                 y2 = Math.floor(Math.random() * (size - 1));
             } while((x2 == size - 1 && y2 == size - 1) || (x2 == x1 && y2 == y1));
-            console.log(x1,' ', y1, ' ', x2, ' ', y2);
 
             var temp = data[x1][y1];
             data[x1][y1] = data[x2][y2];
@@ -71,8 +71,19 @@ class game {
             var y = evt.touches[0].pageY;
             x -= (game_W - WW) / 2;
             y -= (game_H - WW) / 2;
-            xEnd = Math.floor(3 * y / WW);
-            yEnd = Math.floor(3 * x / WW);
+            xEnd = xStart;
+            yEnd = yStart;
+            if (Math.abs(xs - x) > Math.abs(ys - y)) {
+                if (x > xs) 
+                    yEnd = yStart + 1;
+                else
+                    yEnd = yStart - 1;
+            } else {
+                if (y > ys) 
+                    xEnd = xStart + 1;
+                else
+                    xEnd = xStart - 1;
+            }
             if (xEnd == II && yEnd == JJ)
                 this.solove();
         })
@@ -82,6 +93,8 @@ class game {
             var y = evt.touches[0].pageY;
             x -= (game_W - WW) / 2;
             y -= (game_H - WW) / 2;
+            xs = x;
+            ys = y;
 
             xStart = Math.floor(3 * y / WW);
             yStart = Math.floor(3 * x / WW);
@@ -89,15 +102,19 @@ class game {
     }
 
     solove() {
-        if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1) {
-            console.log('swap');
+        if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1 && this.checkXY(xStart, yStart) && this.checkXY(xEnd, yEnd)){
             II = xStart;
             JJ = yStart;
             var temp = data[xStart][yStart];
             data[xStart][yStart] = data[xEnd][yEnd];
             data[xEnd][yEnd] = temp;
-            console.log(data);
         }
+    }
+
+    checkXY(x, y) {
+        if (x < 0 || x >= size || y < 0 || y >= size)
+            return false;
+        return true;
     }
 
     checkWin() {
