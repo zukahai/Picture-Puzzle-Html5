@@ -86,7 +86,7 @@ class game {
                     xEnd = xStart - 1;
             }
             if (xEnd == II || yEnd == JJ)
-                this.solove();
+                this.solve();
         })
 
         document.addEventListener("touchstart", evt => {
@@ -130,13 +130,13 @@ class game {
                     yStart = yEnd;
                     break;
             }
-            this.solove();
+            this.solve();
         })
     }
 
-    solove() {
+    solve() {
         if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1 && this.checkXY(xStart, yStart) && this.checkXY(xEnd, yEnd)){
-            if (II == xStart) {
+            if (II == xStart && xStart == xEnd  && (yStart - yEnd) * (yStart - JJ) >= 0) {
                 if (JJ > yStart) {
                     for (var j = JJ; j > yStart; j--) {
                         data[II][j] = data[II][j - 1];
@@ -148,7 +148,7 @@ class game {
                 data[xStart][yStart] = size * size;
                 II = xStart;
                 JJ = yStart;
-            } else {
+            } else if (JJ == yStart && yStart == yEnd && (xStart - xEnd) * (xStart - II) >= 0){
                 if (II > xStart) {
                     for (var i = II; i > xStart; i--)
                         data[i][JJ] = data[i - 1][JJ];
