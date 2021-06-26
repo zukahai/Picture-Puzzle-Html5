@@ -172,11 +172,14 @@ class game {
     }
 
     messageWin() {
-        if (this.checkWin() == true && delayEnd++ > 50) {
-            win = true;
-            delayEnd = -1000000000;
-            window.alert("You Win");
-            location.reload();
+        if (this.checkWin()) {
+            if (delayEnd++ > 50) {
+                win = true;
+                delayEnd = -1000000000;
+                window.alert("You Win");
+                location.reload();
+            }
+            this.context.drawImage(im[0], (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
         }
     }
 
