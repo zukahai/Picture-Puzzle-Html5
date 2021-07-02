@@ -7,6 +7,7 @@ let xStart = -1, yStart = -1, xEnd = -1, yEnd = -1;
 let xs = 0, ys = 0;
 let win = false;
 let delayEnd = 0;
+let touch = 150;
 var bg = new Image();
 bg.src="images/background.jpg";
 
@@ -67,6 +68,8 @@ class game {
 
     listenTouch() {
         document.addEventListener("touchmove", evt => {
+            if (touch > 0)
+                return;
             if (evt) evt = window.event;
             var x = evt.touches[0].pageX;
             var y = evt.touches[0].pageY;
@@ -90,6 +93,8 @@ class game {
         })
 
         document.addEventListener("touchstart", evt => {
+            if (touch > 0)
+                return;
             var x = evt.touches[0].pageX;
             var y = evt.touches[0].pageY;
             x -= (game_W - WW) / 2;
@@ -104,6 +109,8 @@ class game {
 
     listenKeyboard() {
         document.addEventListener("keydown", key => {
+            if (touch > 0)
+                return;
             switch(key.keyCode) {
                 case 37:
                     xEnd = II;
@@ -190,6 +197,8 @@ class game {
         if (win)
             return;
         this.render();
+        touch--;
+        console.log(touch);
     }
 
     messageWin() {
@@ -200,8 +209,10 @@ class game {
                 window.alert("You Win");
                 location.reload();
             }
-            this.context.drawImage(im[0], (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
+            touch  = 1000000000;
         }
+        if (touch > 0)
+            this.context.drawImage(im[0], (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
     }
 
     render() {
