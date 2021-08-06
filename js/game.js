@@ -17,7 +17,7 @@ var bg = new Image();
 bg.src = "images/background.png";
 
 im = [];
-var rd = Math.floor((Math.random() * 7) + 1);
+var rd = Math.floor((Math.random() * 99999)) % 7 + 1;
 
 for (var i = 0; i <= 9; i++) {
     im[i] = new Image();
