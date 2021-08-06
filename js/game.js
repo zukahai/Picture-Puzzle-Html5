@@ -12,7 +12,7 @@ let xs = 0,
     ys = 0;
 let win = false;
 let delayEnd = 0;
-let touch = 150;
+let timeDelay = touch = 150;
 var bg = new Image();
 bg.src = "images/background.png";
 
@@ -204,7 +204,8 @@ class game {
         if (win)
             return;
         this.render();
-        touch--;
+        if (!win)
+            touch--;
         console.log(touch);
     }
 
@@ -218,8 +219,13 @@ class game {
             }
             touch = 1000000000;
         }
-        if (touch > 0)
+        if (touch > 0) {
             this.context.drawImage(im[0], (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
+            if (touch < timeDelay) {
+                this.context.fillStyle = "#66FFFF";
+                this.context.fillRect((game_W - WW) / 2 - 4, (game_H - WW) / 2 + WW + 16, (WW + 8) * (touch / timeDelay), WW / 10);
+            }
+        }
     }
 
     render() {
@@ -244,7 +250,7 @@ class game {
             var x = j * WW / 3 + (game_W - WW) / 2;
 
             this.context.beginPath();
-            this.context.strokeStyle = "#00FF00";
+            this.context.strokeStyle = "#66FFFF";
             this.context.lineWidth = 8;
             this.context.moveTo(x, y - 4);
             this.context.lineTo(x, y + WW + 4);
@@ -253,7 +259,7 @@ class game {
             y = 0 * WW / 3 + (game_W - WW) / 2;
             x = j * WW / 3 + (game_H - WW) / 2;
             this.context.beginPath();
-            this.context.strokeStyle = "#00FF00";
+            this.context.strokeStyle = "#66FFFF";
             this.context.lineWidth = 8;
             this.context.moveTo(y, x);
             this.context.lineTo(y + WW, x);
