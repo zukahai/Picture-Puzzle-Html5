@@ -223,7 +223,7 @@ class game {
             this.context.drawImage(im[0], (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
             if (touch < timeDelay) {
                 this.context.fillStyle = "#66FFFF";
-                this.context.fillRect((game_W - WW) / 2 - 4, (game_H - WW) / 2 + WW + 16, (WW + 8) * (touch / timeDelay), WW / 10);
+                this.context.fillRect((game_W - WW) / 2 - 4 - (WW + 8) * (touch / timeDelay) / 2 + WW / 2, (game_H - WW) / 2 + WW + 16, (WW + 8) * (touch / timeDelay), WW / 10);
             }
         }
     }
