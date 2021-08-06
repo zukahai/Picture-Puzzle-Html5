@@ -2,26 +2,33 @@ let game_W = 20;
 let game_H = 20;
 let WW = 0;
 const size = 3;
-let II = size - 1, JJ = size - 1;
-let xStart = -1, yStart = -1, xEnd = -1, yEnd = -1;
-let xs = 0, ys = 0;
+let II = size - 1,
+    JJ = size - 1;
+let xStart = -1,
+    yStart = -1,
+    xEnd = -1,
+    yEnd = -1;
+let xs = 0,
+    ys = 0;
 let win = false;
 let delayEnd = 0;
 let touch = 150;
 var bg = new Image();
-bg.src="images/background.jpg";
+bg.src = "images/background.png";
 
 im = [];
 var rd = Math.floor((Math.random() * 7) + 1);
 
 for (var i = 0; i <= 9; i++) {
     im[i] = new Image();
-    im[i].src="images/Data/" + rd + "/" + i + ".jpg";
+    im[i].src = "images/Data/" + rd + "/" + i + ".jpg";
 }
 
-var data = [[1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]];
+var data = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
 
 class game {
     constructor() {
@@ -40,7 +47,7 @@ class game {
         do {
             this.initMatrix();
         } while (this.checkWin());
-        
+
         this.loop();
 
         this.listenKeyboard();
@@ -53,12 +60,12 @@ class game {
             do {
                 x1 = Math.floor(Math.random() * (size - 1));
                 y1 = Math.floor(Math.random() * (size - 1));
-            } while(x1 == size - 1 && y1 == size - 1);
+            } while (x1 == size - 1 && y1 == size - 1);
 
             do {
                 x2 = Math.floor(Math.random() * (size - 1));
                 y2 = Math.floor(Math.random() * (size - 1));
-            } while((x2 == size - 1 && y2 == size - 1) || (x2 == x1 && y2 == y1));
+            } while ((x2 == size - 1 && y2 == size - 1) || (x2 == x1 && y2 == y1));
 
             var temp = data[x1][y1];
             data[x1][y1] = data[x2][y2];
@@ -78,12 +85,12 @@ class game {
             xEnd = xStart;
             yEnd = yStart;
             if (Math.abs(xs - x) > Math.abs(ys - y)) {
-                if (x > xs) 
+                if (x > xs)
                     yEnd = yStart + 1;
                 else
                     yEnd = yStart - 1;
             } else {
-                if (y > ys) 
+                if (y > ys)
                     xEnd = xStart + 1;
                 else
                     xEnd = xStart - 1;
@@ -111,7 +118,7 @@ class game {
         document.addEventListener("keydown", key => {
             if (touch > 0)
                 return;
-            switch(key.keyCode) {
+            switch (key.keyCode) {
                 case 37:
                     xEnd = II;
                     yEnd = JJ;
@@ -142,8 +149,8 @@ class game {
     }
 
     solve() {
-        if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1 && this.checkXY(xStart, yStart) && this.checkXY(xEnd, yEnd)){
-            if (II == xStart && xStart == xEnd  && (yStart - yEnd) * (yStart - JJ) >= 0) {
+        if (Math.abs(xStart - xEnd) + Math.abs(yStart - yEnd) == 1 && this.checkXY(xStart, yStart) && this.checkXY(xEnd, yEnd)) {
+            if (II == xStart && xStart == xEnd && (yStart - yEnd) * (yStart - JJ) >= 0) {
                 if (JJ > yStart) {
                     for (var j = JJ; j > yStart; j--) {
                         data[II][j] = data[II][j - 1];
@@ -155,7 +162,7 @@ class game {
                 data[xStart][yStart] = size * size;
                 II = xStart;
                 JJ = yStart;
-            } else if (JJ == yStart && yStart == yEnd && (xStart - xEnd) * (xStart - II) >= 0){
+            } else if (JJ == yStart && yStart == yEnd && (xStart - xEnd) * (xStart - II) >= 0) {
                 if (II > xStart) {
                     for (var i = II; i > xStart; i--)
                         data[i][JJ] = data[i - 1][JJ];
@@ -167,7 +174,7 @@ class game {
                 II = xStart;
                 JJ = yStart;
             }
-            
+
         }
     }
 
@@ -209,7 +216,7 @@ class game {
                 window.alert("You Win");
                 location.reload();
             }
-            touch  = 1000000000;
+            touch = 1000000000;
         }
         if (touch > 0)
             this.context.drawImage(im[0], (game_W - WW) / 2, (game_H - WW) / 2, WW, WW);
@@ -225,7 +232,7 @@ class game {
 
     draw() {
         this.clearScreen();
-        for (var  i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
             for (var j = 0; j < 3; j++)
                 if (data[i][j] != size * size) {
                     var y = i * WW / 3 + (game_H - WW) / 2;
@@ -235,9 +242,9 @@ class game {
         for (var j = 0; j <= 3; j++) {
             var y = 0 * WW / 3 + (game_H - WW) / 2;
             var x = j * WW / 3 + (game_W - WW) / 2;
-            
+
             this.context.beginPath();
-            this.context.strokeStyle  = "#00FF00";
+            this.context.strokeStyle = "#00FF00";
             this.context.lineWidth = 8;
             this.context.moveTo(x, y - 4);
             this.context.lineTo(x, y + WW + 4);
@@ -246,7 +253,7 @@ class game {
             y = 0 * WW / 3 + (game_W - WW) / 2;
             x = j * WW / 3 + (game_H - WW) / 2;
             this.context.beginPath();
-            this.context.strokeStyle  = "#00FF00";
+            this.context.strokeStyle = "#00FF00";
             this.context.lineWidth = 8;
             this.context.moveTo(y, x);
             this.context.lineTo(y + WW, x);
