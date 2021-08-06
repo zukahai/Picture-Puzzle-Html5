@@ -12,7 +12,7 @@ let xs = 0,
     ys = 0;
 let win = false;
 let delayEnd = 0;
-let timeDelay = touch = 150;
+let timeDelay = touch = 300;
 var bg = new Image();
 bg.src = "images/background.png";
 
