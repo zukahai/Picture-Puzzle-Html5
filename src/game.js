@@ -206,7 +206,7 @@ class game {
         this.render();
         if (!win)
             touch--;
-        console.log(touch);
+        // console.log(touch);
     }
 
     messageWin() {
