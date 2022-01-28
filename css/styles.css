@@ -1,4 +1,8 @@
 body{
+    background-size: cover;
+}
+
+body{
     background-color: white;
     margin: 0px;
     text-align: center;
@@ -16,4 +20,3 @@ html {
 }
 
 html { overflow-y: hidden; }
-
